@@ -6,6 +6,6 @@ import com.example.jejak_sejarah.ui.navigation.AppNavigation
 
 @Composable
 fun MainScreen() {
-    val navController = rememberNavController() // Inisialisasi NavController
+    val navController = rememberNavController()
     AppNavigation(navController = navController)
 }
