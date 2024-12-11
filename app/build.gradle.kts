@@ -50,7 +50,8 @@ android {
 }
 
 dependencies {
-
+    implementation ("io.coil-kt:coil-compose:2.0.0")
+    implementation ("io.coil-kt:coil-svg:2.0.0")
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.navigation:navigation-compose:2.7.5")
     implementation("androidx.compose.material:material-icons-extended:1.5.4")
