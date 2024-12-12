@@ -16,16 +16,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.jejak_sejarah.ui.MainScreen
-import com.example.jejak_sejarah.ui.sign.SignInScreen
+import com.example.jejak_sejarah.ui.login.SigninScreen
 import com.example.jejak_sejarah.ui.sign.SignUpScreen
 import com.example.jejak_sejarah.ui.theme.JejaksejarahTheme
+import com.example.jejak_sejarah.viewmodel.signin.SigninViewModel
 import com.example.jejak_sejarah.viewmodel.signup.SignupViewModel
 import com.example.jejaksejarah.ui.sign.splashscreen.SplashScreen
+import com.google.firebase.FirebaseApp
 import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
+
         setContent {
             JejaksejarahTheme {
                 AppNavHost()
@@ -48,7 +52,9 @@ fun AppNavHost() {
                 }
             })
         }
-        composable("signin") { SignInScreen(navController) }
+        composable("signin") {
+            val signinViewModel: SigninViewModel = viewModel()
+            SigninScreen(navController, signinViewModel) }
         composable("signup") {
             val signupViewModel: SignupViewModel = viewModel()
             SignUpScreen(navController, signupViewModel)
