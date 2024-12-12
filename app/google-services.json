@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1031581486551",
+    "project_id": "jejak-sejarah-442803",
+    "storage_bucket": "jejak-sejarah-442803.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1031581486551:android:22ef0e759ad69fc3facf92",
+        "android_client_info": {
+          "package_name": "com.example.jejak_sejarah"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1031581486551-58mnsjo540or29gjnpufok1lgdlb50oo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlkSufnqLo1whswhgxoZyqLTtiAvWLrec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1031581486551-58mnsjo540or29gjnpufok1lgdlb50oo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

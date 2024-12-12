@@ -3,14 +3,17 @@ package com.example.jejak_sejarah
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.jejak_sejarah.ui.MainScreen
+import com.example.jejak_sejarah.ui.sign.SignInScreen
+import com.example.jejak_sejarah.ui.sign.SignUpScreen
 import com.example.jejak_sejarah.ui.theme.JejaksejarahTheme
 
 class MainActivity : ComponentActivity() {
@@ -18,24 +21,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             JejaksejarahTheme {
-                MainScreen()
+                AppNavHost()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    JejaksejarahTheme {
-        Greeting("Android")
+fun AppNavHost() {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "signin") {
+        composable("signin") { SignInScreen(navController) }
+        composable("signup") { SignUpScreen(navController) }
+        composable("main") { MainScreen() }
     }
 }
