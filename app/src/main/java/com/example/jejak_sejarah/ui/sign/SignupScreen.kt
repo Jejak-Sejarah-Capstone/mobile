@@ -1,7 +1,9 @@
 package com.example.jejak_sejarah.ui.sign
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -17,20 +19,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.jejak_sejarah.R
 import com.example.jejak_sejarah.ui.theme.JejaksejarahTheme
 import com.example.jejak_sejarah.ui.theme.darkBrown
+import com.example.jejak_sejarah.viewmodel.signup.SignupViewModel
 
 @Composable
-fun SignUpScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun SignUpScreen(navController: NavController, viewModel: SignupViewModel, modifier: Modifier = Modifier) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var username by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -55,18 +63,48 @@ fun SignUpScreen(navController: NavController, modifier: Modifier = Modifier) {
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                UsernameTextField(username) { username = it }
+                NameTextField(name) { name = it }
                 EmailTextField(email) { email = it }
                 PasswordTextField(password) { password = it }
                 Spacer(modifier = Modifier.height(16.dp))
-                SignupButton(modifier, navController)
+
+                if (isLoading) {
+                    CircularProgressIndicator(color = darkBrown)
+                } else {
+                    SignupButton(modifier, navController) {
+                        if (name.isBlank() || email.isBlank() || password.isBlank()) {
+                            errorMessage = "Semua field harus diisi."
+                            return@SignupButton
+                        }
+                        isLoading = true
+                        viewModel.signup(name, email, password) { success, message ->
+                            isLoading = false
+                            if (success) {
+                                showToast("Pendaftaran berhasil!", context)
+                                navController.navigate("signin") {
+                                    popUpTo("signup") { inclusive = true }
+                                }
+                            } else {
+                                errorMessage = message ?: "Terjadi kesalahan, silakan coba lagi."
+                            }
+                        }
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(8.dp))
                 TextButton(onClick = { navController.navigate("signin") }) {
                     Text("Sudah punya akun? Sign In")
                 }
+                if (errorMessage.isNotEmpty()) {
+                    Text(text = errorMessage, color = MaterialTheme.colorScheme.error)
+                }
             }
         }
     }
+}
+
+fun showToast(message: String, context: android.content.Context) {
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
 @Composable
@@ -95,15 +133,16 @@ fun PasswordTextField(password: String, onPasswordChange: (String) -> Unit) {
             .padding(16.dp),
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = darkBrown,
-        )
+        ),
+        visualTransformation = PasswordVisualTransformation()
     )
 }
 
 @Composable
-fun UsernameTextField(username: String, onUsernameChange: (String) -> Unit) {
+fun NameTextField(name: String, onNameChange: (String) -> Unit) {
     OutlinedTextField(
-        value = username,
-        onValueChange = onUsernameChange,
+        value = name,
+        onValueChange = onNameChange,
         label = { Text("Username") },
         modifier = Modifier
             .fillMaxWidth()
@@ -115,13 +154,13 @@ fun UsernameTextField(username: String, onUsernameChange: (String) -> Unit) {
 }
 
 @Composable
-fun SignupButton(modifier: Modifier = Modifier, navController: NavController) {
+fun SignupButton(modifier: Modifier = Modifier, navController: NavController, onSignupClick: () -> Unit) {
     Surface(
         modifier = Modifier
             .padding(16.dp),
     ) {
         Button(
-            onClick = { navController.navigate("signin") },
+            onClick = { onSignupClick() },
             colors = ButtonDefaults.buttonColors(containerColor = darkBrown),
             modifier = Modifier
                 .fillMaxWidth()

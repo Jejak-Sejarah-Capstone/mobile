@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,6 +19,7 @@ import com.example.jejak_sejarah.ui.MainScreen
 import com.example.jejak_sejarah.ui.sign.SignInScreen
 import com.example.jejak_sejarah.ui.sign.SignUpScreen
 import com.example.jejak_sejarah.ui.theme.JejaksejarahTheme
+import com.example.jejak_sejarah.viewmodel.signup.SignupViewModel
 import com.example.jejaksejarah.ui.sign.splashscreen.SplashScreen
 import kotlinx.coroutines.delay
 
@@ -47,7 +49,10 @@ fun AppNavHost() {
             })
         }
         composable("signin") { SignInScreen(navController) }
-        composable("signup") { SignUpScreen(navController) }
+        composable("signup") {
+            val signupViewModel: SignupViewModel = viewModel()
+            SignUpScreen(navController, signupViewModel)
+        }
         composable("main") { MainScreen() }
     }
 }
