@@ -85,7 +85,7 @@ fun SignUpScreen(navController: NavController, viewModel: SignupViewModel, modif
                                     popUpTo("signup") { inclusive = true }
                                 }
                             } else {
-                                errorMessage = message ?: "Terjadi kesalahan, silakan coba lagi."
+                                errorMessage = "Signup Gagal, silakan coba lagi."
                             }
                         }
                     }
