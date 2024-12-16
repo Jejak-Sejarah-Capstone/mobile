@@ -79,4 +79,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation("androidx.compose.material:material:1.8.0-alpha06")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }

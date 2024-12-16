@@ -40,7 +40,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.jejak_sejarah.R
-import com.example.jejak_sejarah.ui.home.HomeScreen
 import com.example.jejak_sejarah.ui.theme.JejaksejarahTheme
 import com.example.jejak_sejarah.ui.theme.darkBrown
 import com.example.jejak_sejarah.ui.theme.lightBrown

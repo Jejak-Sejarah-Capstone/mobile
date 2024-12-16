@@ -1,5 +1,6 @@
 package com.example.jejak_sejarah
 
+import HomeScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -23,7 +24,6 @@ import com.example.jejak_sejarah.viewmodel.signin.SigninViewModel
 import com.example.jejak_sejarah.viewmodel.signup.SignupViewModel
 import com.example.jejaksejarah.ui.sign.splashscreen.SplashScreen
 import com.google.firebase.FirebaseApp
-import kotlinx.coroutines.delay
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +54,8 @@ fun AppNavHost() {
         }
         composable("signin") {
             val signinViewModel: SigninViewModel = viewModel()
-            SigninScreen(navController, signinViewModel) }
+            SigninScreen(navController, signinViewModel)
+        }
         composable("signup") {
             val signupViewModel: SignupViewModel = viewModel()
             SignUpScreen(navController, signupViewModel)
